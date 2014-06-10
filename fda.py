@@ -8,7 +8,7 @@ import hexchat
 fda_status = None
 
 def fda_print(userdata):
-    hexchat.prnt("FDA sent :DID SOMEBODY SAY FREEDOM ?")
+    hexchat.emit_print("Channel Message",hexchat.get_info("nick"), "DID SOMEBODY SAY FREEDOM ?","@")
 
 def freedom_alert_cb(word, word_eol, userdata):
     global fda_status
@@ -21,8 +21,10 @@ def freedom_alert_cb(word, word_eol, userdata):
 
     internal = word_eol[1].lower()
     if "freedom" in internal:
-        hexchat.command("MSG {} DID SOMEBODY SAY FREEDOM ?".format(hexchat.get_info("channel")))
-        hexchat.hook_timer(1000, fda_print)
+        nickname = hexchat.get_info("nick")
+        if nickname != word[0]:
+            hexchat.command("MSG {} DID SOMEBODY SAY FREEDOM ?".format(hexchat.get_info("channel")))
+            hexchat.hook_timer(500, fda_print)
 
     return hexchat.EAT_NONE
 
