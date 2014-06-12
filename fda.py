@@ -22,7 +22,7 @@ def freedom_alert_cb(word, word_eol, userdata):
     internal = word_eol[1].lower()
     if "freedom" in internal:
         nickname = hexchat.get_info("nick")
-        if nickname != word[0]:
+        if hexchat.nickcmp(nickname, word[0]) != 0:
             hexchat.command("MSG {} DID SOMEBODY SAY FREEDOM ?".format(hexchat.get_info("channel")))
             hexchat.hook_timer(500, fda_print)
 
