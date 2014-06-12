@@ -48,7 +48,7 @@ def toggle_fda(word, word_eol, userdata):
 def on_init_cb():
     global fda_status
     fda_status = True
-    hexchat.hook_print("Channel Message", freedom_alert_cb)
+    hexchat.hook_print("Channel Message", freedom_alert_cb, None, hexchat.PRI_LOWEST)
     hexchat.hook_unload(unload_cb)
     hexchat.hook_command("fda", toggle_fda)
     print("\0034 {} {} {}".format(__module_name__, __module_version__,"has been loaded\003"))
