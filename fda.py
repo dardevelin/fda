@@ -1,3 +1,4 @@
+from __future__ import print_function
 __module_name__ = "FDA - Freedom Alert"
 __module_version__ = "1.1"
 __module_description__ = "Freedom Alert, auto replies each time freedom is mentioned"
@@ -24,12 +25,12 @@ def freedom_alert_cb(word, word_eol, userdata):
         nickname = hexchat.get_info("nick")
         channel = hexchat.get_info("channel")
         if hexchat.nickcmp(nickname, word[0]) != 0:
-            hexchat.hook_timer(500, fda_print,channel)
+            hexchat.hook_timer(1, fda_print,channel)
 
     return hexchat.EAT_NONE
 
 def unload_cb(userdata):
-    print "\0034",__module_name__, __module_version__,"has been unloaded\003"
+    print("\0034 {} {} {}".format(__module_name__, __module_version__, "has been unloaded\003"))
 
 def toggle_fda(word, word_eol, userdata):
     global fda_status
@@ -50,6 +51,6 @@ def on_init_cb():
     hexchat.hook_print("Channel Message", freedom_alert_cb)
     hexchat.hook_unload(unload_cb)
     hexchat.hook_command("fda", toggle_fda)
-    print "\0034",__module_name__, __module_version__,"has been loaded\003"
+    print("\0034 {} {} {}".format(__module_name__, __module_version__,"has been loaded\003"))
 
 on_init_cb()
